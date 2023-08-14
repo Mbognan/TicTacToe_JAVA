@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Tictactoe extends JFrame implements ActionListener {
     private JButton[][] buttons;
-    
+   String currentPlayer = "X";
+ 
     public Tictactoe() {
         setTitle("Tic-Tac-Toe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,25 +30,27 @@ public class Tictactoe extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton buttonClicked = (JButton) e.getSource();
-        // Handle button click event here
+     
 
-        // set button X to 0
-        if (buttonClicked.getText().equals("")) {
-            buttonClicked.setText("X");
-            if(CheckWinner("X")){
-                JOptionPane.showMessageDialog(this, "Player X wins!!");
+        // set player switch
+        if(buttonClicked.getText().equals("")){
+            buttonClicked.setText(currentPlayer);
+            if(CheckWinner(currentPlayer)){
+                JOptionPane.showMessageDialog(this, "Player "+ currentPlayer+ " Wins ");
                 Boardreset();
             }
-        } else {
-        buttonClicked.setText("0");
-        if(CheckWinner("0")){JOptionPane.showMessageDialog(this, "Player 0 wins!!"); Boardreset();}
+                currentPlayer = (currentPlayer.equals("X"))? "0":"X";//? is ternary operation in java            
+
+        }else{
+            JOptionPane.showMessageDialog(this,"This is already acuppied please pick another cell");
+
         }
-        
-        if(Boardfull()&& !CheckWinner("X")&& !CheckWinner("0")){
-        JOptionPane.showConfirmDialog(this, "Its a draw");
-        Boardreset();}    
-        
-    
+        if(Boardfull()){
+            JOptionPane.showMessageDialog(this, "The match is draw! Bitches!!");
+            Boardreset();
+
+        }
+
      
        
     }
@@ -84,7 +87,7 @@ public class Tictactoe extends JFrame implements ActionListener {
     private boolean Boardfull(){
         for(int i= 0; i<3; i++){
             for(int j=0; j<3; j++){
-                if(buttons[i][j].getText().equals("X")){
+                if(buttons[i][j].getText().equals("")){
                     return false;
 
                 }
@@ -102,6 +105,7 @@ private void Boardreset(){
     }
 
 }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Tictactoe());
