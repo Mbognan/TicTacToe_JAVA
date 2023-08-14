@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 public class Tictactoe extends JFrame implements ActionListener {
     private JButton[][] buttons;
    String currentPlayer = "X";
+   private JLabel creditsLabel;
  
     public Tictactoe() {
         setTitle("Tic-Tac-Toe");
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
-        setLayout(new GridLayout(3, 3));
+        setLayout(new GridLayout(4, 3));
         
         buttons = new JButton[3][3];
         for (int i = 0; i < 3; i++) {
@@ -23,6 +25,11 @@ public class Tictactoe extends JFrame implements ActionListener {
             }
         }
         
+       
+        creditsLabel = new JLabel("---Mbognan");
+        creditsLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(creditsLabel);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -105,7 +112,6 @@ private void Boardreset(){
     }
 
 }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Tictactoe());
